@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% block title %}テスト１{% endblock %}
+{% block scripts %}
+<script>
+  $(document).ready(function() {
+  const cells = document.querySelectorAll('td');
+
+  cells.forEach(cell => {
+    cell.addEventListener('click', () => {
+      if (cell.classList.contains('reserved')) {
+        alert('予約済みです！');
+      } else {
+        const date = cell.dataset.date;
+        const person = cell.dataset.person;
+        const confirm = window.confirm(`${date} の 人${person} を予約しますか？`);
+        if (confirm) {
+          cell.classList.add('reserved');
+        }
+      }
+    });
+  });
+});
+</script>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  td:hover {
+    background-color: lightyellow;
+    cursor: pointer;
+  }
+  .reserved {
+    background-color: lightcoral;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<h2>簡易予約表</h2>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>5月1日</th>
+      <th>5月2日</th>
+      <th>5月3日</th>
+      <th>5月4日</th>
+      <th>5月5日</th>
+      <th>5月6日</th>
+      <th>5月7日</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in list_test %}
+    <tr>
+      <th id="test">{{ row }}</th>
+      <td data-date="5-1" data-person="1"></td>
+      <td data-date="5-2" data-person="1"></td>
+      <td data-date="5-3" data-person="1"></td>
+      <td data-date="5-4" data-person="1"></td>
+      <td data-date="5-5" data-person="1"></td>
+      <td data-date="5-6" data-person="1"></td>
+      <td data-date="5-7" data-person="1"></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
